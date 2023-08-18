@@ -121,7 +121,7 @@ func (folder *Folder) GetChildFiles() ([]File, error) {
 }
 
 // GetFilesByIDs 根据文件ID批量获取文件,
-// UID为0表示忽略用户，只根据文件ID检索
+// UID为0表示忽略用户 , 只根据文件ID检索
 func GetFilesByIDs(ids []uint, uid uint) ([]File, error) {
 	return GetFilesByIDsFromTX(DB, ids, uid)
 }
@@ -138,7 +138,7 @@ func GetFilesByIDsFromTX(tx *gorm.DB, ids []uint, uid uint) ([]File, error) {
 }
 
 // GetFilesByKeywords 根据关键字搜索文件,
-// UID为0表示忽略用户，只根据文件ID检索. 如果 parents 非空， 则只限制在 parent 包含的目录下搜索
+// UID为0表示忽略用户 , 只根据文件ID检索. 如果 parents 非空 ,  则只限制在 parent 包含的目录下搜索
 func GetFilesByKeywords(uid uint, parents []uint, keywords ...interface{}) ([]File, error) {
 	var (
 		files      []File
@@ -169,7 +169,7 @@ func GetFilesByKeywords(uid uint, parents []uint, keywords ...interface{}) ([]Fi
 
 // GetChildFilesOfFolders 批量检索目录子文件
 func GetChildFilesOfFolders(folders *[]Folder) ([]File, error) {
-	// 将所有待检索目录ID抽离，以便检索文件
+	// 将所有待检索目录ID抽离 , 以便检索文件
 	folderIDs := make([]uint, 0, len(*folders))
 	for _, value := range *folders {
 		folderIDs = append(folderIDs, value.ID)

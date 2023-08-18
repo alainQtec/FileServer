@@ -46,7 +46,7 @@ func TestBuildShareResponse(t *testing.T) {
 		asserts.NotNil(res.Creator)
 	}
 
-	// 已解锁，非目录
+	// 已解锁 , 非目录
 	{
 		expires := time.Now().Add(time.Duration(10) * time.Second)
 		share := &model.Share{
@@ -64,7 +64,7 @@ func TestBuildShareResponse(t *testing.T) {
 		asserts.NotNil(res.Creator)
 	}
 
-	// 已解锁，是目录
+	// 已解锁 , 是目录
 	{
 		expires := time.Now().Add(time.Duration(10) * time.Second)
 		share := &model.Share{

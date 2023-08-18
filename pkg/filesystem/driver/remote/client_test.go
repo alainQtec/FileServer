@@ -60,7 +60,7 @@ func TestRemoteClient_Upload(t *testing.T) {
 		clientMock.AssertExpectations(t)
 	}
 
-	// 分片上传失败，成功删除上传会话
+	// 分片上传失败 , 成功删除上传会话
 	{
 		cache.Set("setting_chunk_retries", "1", 0)
 		clientMock := requestmock.RequestMock{}
@@ -106,7 +106,7 @@ func TestRemoteClient_Upload(t *testing.T) {
 		clientMock.AssertExpectations(t)
 	}
 
-	// 分片上传失败，无法删除上传会话
+	// 分片上传失败 , 无法删除上传会话
 	{
 		cache.Set("setting_chunk_retries", "1", 0)
 		clientMock := requestmock.RequestMock{}

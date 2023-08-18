@@ -123,7 +123,7 @@ func (client *Client) ObtainToken(ctx context.Context, opts ...Option) (*Credent
 
 }
 
-// UpdateCredential 更新凭证，并检查有效期
+// UpdateCredential 更新凭证 , 并检查有效期
 func (client *Client) UpdateCredential(ctx context.Context, isSlave bool) error {
 	if isSlave {
 		return client.fetchCredentialFromMaster(ctx)
@@ -136,7 +136,7 @@ func (client *Client) UpdateCredential(ctx context.Context, isSlave bool) error 
 	if client.Credential != nil && client.Credential.AccessToken != "" {
 		// 检查已有凭证是否过期
 		if client.Credential.ExpiresIn > time.Now().Unix() {
-			// 未过期，不要更新
+			// 未过期 , 不要更新
 			return nil
 		}
 	}
@@ -180,7 +180,7 @@ func (client *Client) AccessToken() string {
 	return client.Credential.AccessToken
 }
 
-// UpdateCredential 更新凭证，并检查有效期
+// UpdateCredential 更新凭证 , 并检查有效期
 func (client *Client) fetchCredentialFromMaster(ctx context.Context) error {
 	res, err := client.ClusterController.GetPolicyOauthToken(client.Policy.MasterID, client.Policy.ID)
 	if err != nil {

@@ -38,7 +38,7 @@ func (fs *FileSystem) Compress(ctx context.Context, writer io.Writer, folderIDs,
 		return ErrDBListObjects
 	}
 
-	// 如果上下文限制了父目录，则进行检查
+	// 如果上下文限制了父目录 , 则进行检查
 	if parent, ok := ctx.Value(fsctx.LimitParentCtx).(*model.Folder); ok {
 		// 检查目录
 		for _, folder := range folders {
@@ -55,7 +55,7 @@ func (fs *FileSystem) Compress(ctx context.Context, writer io.Writer, folderIDs,
 		}
 	}
 
-	// 尝试获取请求上下文，以便于后续检查用户取消任务
+	// 尝试获取请求上下文 , 以便于后续检查用户取消任务
 	reqContext := ctx
 	ginCtx, ok := ctx.Value(fsctx.GinCtx).(*gin.Context)
 	if ok {
@@ -154,7 +154,7 @@ func (fs *FileSystem) doCompress(ctx context.Context, file *model.File, folder *
 			}
 
 		}
-		// 获取子目录，继续递归遍历
+		// 获取子目录 , 继续递归遍历
 		subFolders, err := folder.GetChildFolder()
 		if err == nil && len(subFolders) > 0 {
 			for i := 0; i < len(subFolders); i++ {
@@ -223,7 +223,7 @@ func (fs *FileSystem) Decompress(ctx context.Context, src, dst, encoding string)
 		isZip = true
 	}
 
-	// 除了zip必须下载到本地，其余的可以边下载边解压
+	// 除了zip必须下载到本地 , 其余的可以边下载边解压
 	reader := readStream
 	if isZip {
 		_, err = io.Copy(zipFile, readStream)
@@ -278,7 +278,7 @@ func (fs *FileSystem) Decompress(ctx context.Context, src, dst, encoding string)
 		}
 	}
 
-	// 解压缩文件，回调函数如果出错会停止解压的下一步进行，全部return nil
+	// 解压缩文件 , 回调函数如果出错会停止解压的下一步进行 , 全部return nil
 	err = extractor.Extract(ctx, reader, nil, func(ctx context.Context, f archiver.File) error {
 		rawPath := util.FormSlash(f.NameInArchive)
 		savePath := path.Join(dst, rawPath)

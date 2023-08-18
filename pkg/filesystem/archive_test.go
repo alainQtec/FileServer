@@ -173,7 +173,7 @@ func TestFileSystem_Decompress(t *testing.T) {
 		// 查找根目录
 		mock.ExpectQuery("SELECT(.+)folders(.+)").
 			WillReturnRows(sqlmock.NewRows([]string{"id", "name"}).AddRow(1, "/"))
-		// 查找压缩文件，未找到
+		// 查找压缩文件 , 未找到
 		mock.ExpectQuery("SELECT(.+)files(.+)").
 			WillReturnRows(sqlmock.NewRows([]string{"id", "name"}))
 		err := fs.Decompress(ctx, "/1.zip", "/", "")
@@ -235,7 +235,7 @@ func TestFileSystem_Decompress(t *testing.T) {
 		asserts.True(util.IsEmpty(util.RelativePath("tests/decompress")))
 	}
 
-	// 无法上传，容量不足
+	// 无法上传 , 容量不足
 	{
 		cache.Set("setting_max_parallel_transfer", "1", 0)
 		zipFile, _ := os.Open(Path("tests/test.zip"))

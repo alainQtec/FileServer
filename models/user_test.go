@@ -152,14 +152,14 @@ func TestUser_CheckPassword(t *testing.T) {
 	asserts.Error(err)
 	asserts.False(res)
 
-	// V2密码，错误
+	// V2密码 , 错误
 	user = User{}
 	user.Password = "md5:2:3"
 	res, err = user.CheckPassword("Cause Sega does what nintendon't")
 	asserts.NoError(err)
 	asserts.False(res)
 
-	// V2密码，正确
+	// V2密码 , 正确
 	user = User{}
 	user.Password = "md5:d8446059f8846a2c111a7f53515665fb:sdshare"
 	res, err = user.CheckPassword("admin")

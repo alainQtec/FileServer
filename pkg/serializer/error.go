@@ -5,7 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// AppError 应用错误，实现了error接口
+// AppError 应用错误 , 实现了error接口
 type AppError struct {
 	Code     int
 	Msg      string
@@ -43,8 +43,8 @@ func (err AppError) Error() string {
 
 // 三位数错误编码为复用http原本含义
 // 五位数错误编码为应用自定义错误
-// 五开头的五位数错误编码为服务器端错误，比如数据库操作失败
-// 四开头的五位数错误编码为客户端错误，有时候是客户端代码写错了，有时候是用户操作错误
+// 五开头的五位数错误编码为服务器端错误 , 比如数据库操作失败
+// 四开头的五位数错误编码为客户端错误 , 有时候是客户端代码写错了 , 有时候是用户操作错误
 const (
 	// CodeNotFullySuccess 未完全成功
 	CodeNotFullySuccess = 203
@@ -214,7 +214,7 @@ const (
 	CodeQueryMetaFailed = 50011
 	//CodeParamErr 各种奇奇怪怪的参数错误
 	CodeParamErr = 40001
-	// CodeNotSet 未定错误，后续尝试从error中获取
+	// CodeNotSet 未定错误 , 后续尝试从error中获取
 	CodeNotSet = -1
 )
 
@@ -236,7 +236,7 @@ func ParamErr(msg string, err error) Response {
 
 // Err 通用错误处理
 func Err(errCode int, msg string, err error) Response {
-	// 底层错误是AppError，则尝试从AppError中获取详细信息
+	// 底层错误是AppError , 则尝试从AppError中获取详细信息
 	var appError AppError
 	if errors.As(err, &appError) {
 		errCode = appError.Code

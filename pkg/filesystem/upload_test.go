@@ -95,7 +95,7 @@ func TestFileSystem_Upload(t *testing.T) {
 	err := fs.Upload(ctx, file)
 	asserts.NoError(err)
 
-	// 正常，上下文已指定源文件
+	// 正常 , 上下文已指定源文件
 	testHandler = new(FileHeaderMock)
 	testHandler.On("Put", testMock.Anything, testMock.Anything).Return(nil)
 	fs = &FileSystem{

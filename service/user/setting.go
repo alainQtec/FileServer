@@ -181,7 +181,7 @@ func (service *AvatarService) Get(c *gin.Context) serializer.Response {
 		return serializer.Err(serializer.CodeUserNotFound, "", err)
 	}
 
-	// 未设定头像时，返回404错误
+	// 未设定头像时 , 返回404错误
 	if user.Avatar == "" {
 		c.Status(404)
 		return serializer.Response{}

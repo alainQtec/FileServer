@@ -76,7 +76,7 @@ func (fs *FileSystem) Recycle() {
 	FSPool.Put(fs)
 }
 
-// reset 重设文件系统，以便回收使用
+// reset 重设文件系统 , 以便回收使用
 func (fs *FileSystem) reset() {
 	fs.User = nil
 	fs.CleanTargets()
@@ -105,7 +105,7 @@ func NewAnonymousFileSystem() (*FileSystem, error) {
 	fs := getEmptyFS()
 	fs.User = &model.User{}
 
-	// 如果是主机模式下，则为匿名文件系统分配游客用户组
+	// 如果是主机模式下 , 则为匿名文件系统分配游客用户组
 	if conf.SystemConfig.Mode == "master" {
 		anonymousGroup, err := model.GetGroupByID(3)
 		if err != nil {
@@ -113,7 +113,7 @@ func NewAnonymousFileSystem() (*FileSystem, error) {
 		}
 		fs.User.Group = anonymousGroup
 	} else {
-		// 从机模式下，分配本地策略处理器
+		// 从机模式下 , 分配本地策略处理器
 		fs.Handler = local.Driver{}
 	}
 
@@ -260,7 +260,7 @@ func (fs *FileSystem) SetTargetDir(dirs *[]model.Folder) {
 
 }
 
-// SetTargetFileByIDs 根据文件ID设置目标文件，忽略用户ID
+// SetTargetFileByIDs 根据文件ID设置目标文件 , 忽略用户ID
 func (fs *FileSystem) SetTargetFileByIDs(ids []uint) error {
 	files, err := model.GetFilesByIDs(ids, 0)
 	if err != nil || len(files) == 0 {

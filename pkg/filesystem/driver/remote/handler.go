@@ -159,8 +159,8 @@ func (handler *Driver) Put(ctx context.Context, file fsctx.FileHeader) error {
 	return handler.uploadClient.Upload(ctx, file)
 }
 
-// Delete 删除一个或多个文件，
-// 返回未删除的文件，及遇到的最后一个错误
+// Delete 删除一个或多个文件 ,
+// 返回未删除的文件 , 及遇到的最后一个错误
 func (handler *Driver) Delete(ctx context.Context, files []string) ([]string, error) {
 	// 封装接口请求正文
 	reqBody := serializer.RemoteDeleteRequest{

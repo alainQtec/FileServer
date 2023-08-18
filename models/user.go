@@ -74,7 +74,7 @@ func (user *User) DeductionStorage(size uint64) bool {
 		DB.Model(user).Update("storage", gorm.Expr("storage - ?", size))
 		return true
 	}
-	// 如果要减少的容量超出已用容量，则设为零
+	// 如果要减少的容量超出已用容量 , 则设为零
 	user.Storage = 0
 	DB.Model(user).Update("storage", 0)
 
@@ -99,7 +99,7 @@ func (user *User) ChangeStorage(tx *gorm.DB, operator string, size uint64) error
 	return tx.Model(user).Update("storage", gorm.Expr("storage "+operator+" ?", size)).Error
 }
 
-// IncreaseStorageWithoutCheck 忽略可用容量，增加用户已用容量
+// IncreaseStorageWithoutCheck 忽略可用容量 , 增加用户已用容量
 func (user *User) IncreaseStorageWithoutCheck(size uint64) {
 	if size == 0 {
 		return
@@ -214,7 +214,7 @@ func (user *User) CheckPassword(password string) (bool, error) {
 		return false, errors.New("Unknown password type")
 	}
 
-	// 兼容V2密码，升级后存储格式为: md5:$HASH:$SALT
+	// 兼容V2密码 , 升级后存储格式为: md5:$HASH:$SALT
 	if len(passwordStore) == 3 {
 		if passwordStore[0] != "md5" {
 			return false, errors.New("Unknown password type")
@@ -253,7 +253,7 @@ func (user *User) SetPassword(password string) error {
 		return err
 	}
 
-	//存储 Salt 值和摘要， ":"分割
+	//存储 Salt 值和摘要 ,  ":"分割
 	user.Password = salt + ":" + string(bs)
 	return nil
 }

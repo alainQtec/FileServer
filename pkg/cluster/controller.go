@@ -157,7 +157,7 @@ func (c *slaveController) SubmitTask(id string, job interface{}, hash string, su
 
 	if node, ok := c.masters[id]; ok {
 		if _, ok := node.jobTracker[hash]; ok {
-			// 任务已存在，直接返回
+			// 任务已存在 , 直接返回
 			return nil
 		}
 

@@ -128,8 +128,8 @@ func (handler Driver) Put(ctx context.Context, file fsctx.FileHeader) error {
 	return handler.Client.Upload(ctx, file)
 }
 
-// Delete 删除一个或多个文件，
-// 返回未删除的文件，及遇到的最后一个错误
+// Delete 删除一个或多个文件 ,
+// 返回未删除的文件 , 及遇到的最后一个错误
 func (handler Driver) Delete(ctx context.Context, files []string) ([]string, error) {
 	return handler.Client.BatchDelete(ctx, files)
 }
@@ -177,7 +177,7 @@ func (handler Driver) Source(
 		return handler.replaceSourceHost(cachedURL.(string))
 	}
 
-	// 缓存不存在，重新获取
+	// 缓存不存在 , 重新获取
 	res, err := handler.Client.Meta(ctx, "", path)
 	if err == nil {
 		// 写入新的缓存

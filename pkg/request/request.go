@@ -165,7 +165,7 @@ func (resp *Response) CheckHTTPResponse(status int) *Response {
 	return resp
 }
 
-// DecodeResponse 尝试解析为serializer.Response，并对状态码进行检查
+// DecodeResponse 尝试解析为serializer.Response , 并对状态码进行检查
 func (resp *Response) DecodeResponse() (*serializer.Response, error) {
 	if resp.Err != nil {
 		return nil, resp.Err
@@ -192,14 +192,14 @@ type NopRSCloser struct {
 }
 
 type rscStatus struct {
-	// http.ServeContent 会读取一小块以决定内容类型，
-	// 但是响应body无法实现seek，所以此项为真时第一个read会返回假数据
+	// http.ServeContent 会读取一小块以决定内容类型 ,
+	// 但是响应body无法实现seek , 所以此项为真时第一个read会返回假数据
 	IgnoreFirst bool
 
 	Size int64
 }
 
-// GetRSCloser 返回带有空seeker的RSCloser，供http.ServeContent使用
+// GetRSCloser 返回带有空seeker的RSCloser , 供http.ServeContent使用
 func (resp *Response) GetRSCloser() (*NopRSCloser, error) {
 	if resp.Err != nil {
 		return nil, resp.Err
@@ -239,7 +239,7 @@ func (instance NopRSCloser) Close() error {
 
 // Seek 实现 NopRSCloser seeker, 只实现seek开头/结尾以便http.ServeContent用于确定正文大小
 func (instance NopRSCloser) Seek(offset int64, whence int) (int64, error) {
-	// 进行第一次Seek操作后，取消忽略选项
+	// 进行第一次Seek操作后 , 取消忽略选项
 	if instance.status.IgnoreFirst {
 		instance.status.IgnoreFirst = false
 	}

@@ -16,7 +16,7 @@ func TestHashID(t *testing.T) {
 	rec := httptest.NewRecorder()
 	TestFunc := HashID(hashid.FolderID)
 
-	// 未给定ID对象，跳过
+	// 未给定ID对象 , 跳过
 	{
 		c, _ := gin.CreateTestContext(rec)
 		c.Params = []gin.Param{}
@@ -26,7 +26,7 @@ func TestHashID(t *testing.T) {
 		asserts.False(c.IsAborted())
 	}
 
-	// 给定ID，解析失败
+	// 给定ID , 解析失败
 	{
 		c, _ := gin.CreateTestContext(rec)
 		c.Params = []gin.Param{
@@ -38,7 +38,7 @@ func TestHashID(t *testing.T) {
 		asserts.True(c.IsAborted())
 	}
 
-	// 给定ID，解析成功
+	// 给定ID , 解析成功
 	{
 		c, _ := gin.CreateTestContext(rec)
 		c.Params = []gin.Param{

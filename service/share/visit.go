@@ -27,8 +27,8 @@ type ShareGetService struct {
 	Password string `form:"password" binding:"max=255"`
 }
 
-// Service 对分享进行操作的服务，
-// path 为可选文件完整路径，在目录分享下有效
+// Service 对分享进行操作的服务 ,
+// path 为可选文件完整路径 , 在目录分享下有效
 type Service struct {
 	Path string `form:"path" uri:"path" binding:"max=65535"`
 }
@@ -125,7 +125,7 @@ func (service *ShareGetService) Get(c *gin.Context) serializer.Response {
 		sessionKey := fmt.Sprintf("share_unlock_%d", share.ID)
 		unlocked = util.GetSession(c, sessionKey) != nil
 		if !unlocked && service.Password != "" {
-			// 如果未解锁，且指定了密码，则尝试解锁
+			// 如果未解锁 , 且指定了密码 , 则尝试解锁
 			if service.Password == share.Password {
 				unlocked = true
 				util.SetSession(c, map[string]interface{}{sessionKey: true})
@@ -188,7 +188,7 @@ func (service *Service) CreateDownloadSession(c *gin.Context) serializer.Respons
 	}
 }
 
-// PreviewContent 预览文件，需要登录会话, isText - 是否为文本文件，文本文件会
+// PreviewContent 预览文件 , 需要登录会话, isText - 是否为文本文件 , 文本文件会
 // 强制经由服务端中转
 func (service *Service) PreviewContent(ctx context.Context, c *gin.Context, isText bool) serializer.Response {
 	shareCtx, _ := c.Get("share")
@@ -206,7 +206,7 @@ func (service *Service) PreviewContent(ctx context.Context, c *gin.Context, isTe
 	return subService.PreviewContent(ctx, c, isText)
 }
 
-// CreateDocPreviewSession 创建Office预览会话，返回预览地址
+// CreateDocPreviewSession 创建Office预览会话 , 返回预览地址
 func (service *Service) CreateDocPreviewSession(c *gin.Context) serializer.Response {
 	shareCtx, _ := c.Get("share")
 	share := shareCtx.(*model.Share)

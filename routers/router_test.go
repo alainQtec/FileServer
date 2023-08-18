@@ -68,7 +68,7 @@ func TestCaptcha(t *testing.T) {
 //		reqBody     string
 //		expected    interface{}
 //	}{
-//		// 登录信息正确，不需要验证码
+//		// 登录信息正确 , 不需要验证码
 //		{
 //			settingRows: sqlmock.NewRows([]string{"name", "value", "type"}).
 //				AddRow("login_captcha", "0", "login"),
@@ -83,7 +83,7 @@ func TestCaptcha(t *testing.T) {
 //				},
 //			}),
 //		},
-//		// 登录信息正确，需要验证码,验证码错误
+//		// 登录信息正确 , 需要验证码,验证码错误
 //		{
 //			settingRows: sqlmock.NewRows([]string{"name", "value", "type"}).
 //				AddRow("login_captcha", "1", "login"),

@@ -80,7 +80,7 @@ func AuthRequired() gin.HandlerFunc {
 // WebDAVAuth 验证WebDAV登录及权限
 func WebDAVAuth() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		// OPTIONS 请求不需要鉴权，否则Windows10下无法保存文档
+		// OPTIONS 请求不需要鉴权 , 否则Windows10下无法保存文档
 		if c.Request.Method == "OPTIONS" {
 			c.Next()
 			return
@@ -142,7 +142,7 @@ func UseUploadSession(policyType string) gin.HandlerFunc {
 	}
 }
 
-// uploadCallbackCheck 对上传回调请求的 callback key 进行验证，如果成功则返回上传用户
+// uploadCallbackCheck 对上传回调请求的 callback key 进行验证 , 如果成功则返回上传用户
 func uploadCallbackCheck(c *gin.Context, policyType string) serializer.Response {
 	// 验证 Callback Key
 	sessionID := c.Param("sessionID")

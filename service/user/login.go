@@ -111,7 +111,7 @@ func (service *Enable2FA) Login(c *gin.Context) serializer.Response {
 			return serializer.Err(serializer.Code2FACodeErr, "2FA code not correct", nil)
 		}
 
-		//登陆成功，清空并设置session
+		//登陆成功 , 清空并设置session
 		util.DeleteSession(c, "2fa_user_id")
 		util.SetSession(c, map[string]interface{}{
 			"user_id": expectedUser.ID,
@@ -148,7 +148,7 @@ func (service *UserLoginService) Login(c *gin.Context) serializer.Response {
 		return serializer.Response{Code: 203}
 	}
 
-	//登陆成功，清空并设置session
+	//登陆成功 , 清空并设置session
 	util.SetSession(c, map[string]interface{}{
 		"user_id": expectedUser.ID,
 	})

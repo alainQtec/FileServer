@@ -28,7 +28,7 @@ type Thumb struct {
 	ext string
 }
 
-// NewThumbFromFile 从文件数据获取新的Thumb对象，
+// NewThumbFromFile 从文件数据获取新的Thumb对象 ,
 // 尝试通过文件名name解码图像
 func NewThumbFromFile(file io.Reader, name string) (*Thumb, error) {
 	ext := strings.ToLower(filepath.Ext(name))

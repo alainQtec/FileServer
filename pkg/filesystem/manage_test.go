@@ -75,7 +75,7 @@ func TestFileSystem_List(t *testing.T) {
 	}}
 	ctx := context.Background()
 
-	// 成功，子目录包含文件和路径，不使用路径处理钩子
+	// 成功 , 子目录包含文件和路径 , 不使用路径处理钩子
 	// 根目录
 	mock.ExpectQuery("SELECT(.+)").
 		WithArgs(1).
@@ -92,7 +92,7 @@ func TestFileSystem_List(t *testing.T) {
 	asserts.NoError(err)
 	asserts.NoError(mock.ExpectationsWereMet())
 
-	// 成功，子目录包含文件和路径，不使用路径处理钩子，包含分享key
+	// 成功 , 子目录包含文件和路径 , 不使用路径处理钩子 , 包含分享key
 	// 根目录
 	mock.ExpectQuery("SELECT(.+)").
 		WithArgs(1).
@@ -111,7 +111,7 @@ func TestFileSystem_List(t *testing.T) {
 	asserts.NoError(err)
 	asserts.NoError(mock.ExpectationsWereMet())
 
-	// 成功，子目录包含文件和路径，使用路径处理钩子
+	// 成功 , 子目录包含文件和路径 , 使用路径处理钩子
 	mock.ExpectQuery("SELECT(.+)").
 		WithArgs(1).
 		WillReturnRows(sqlmock.NewRows([]string{"id", "name", "owner_id"}).AddRow(1, "/", 1))
@@ -132,7 +132,7 @@ func TestFileSystem_List(t *testing.T) {
 		asserts.Contains(value.Path, "prefix/")
 	}
 
-	// 成功，子目录包含路径，使用路径处理钩子
+	// 成功 , 子目录包含路径 , 使用路径处理钩子
 	mock.ExpectQuery("SELECT(.+)").
 		WithArgs(1).
 		WillReturnRows(sqlmock.NewRows([]string{"id", "name", "owner_id"}).AddRow(1, "/", 1))
@@ -153,7 +153,7 @@ func TestFileSystem_List(t *testing.T) {
 		asserts.Contains(value.Path, "prefix/")
 	}
 
-	// 成功，子目录下为空，使用路径处理钩子
+	// 成功 , 子目录下为空 , 使用路径处理钩子
 	mock.ExpectQuery("SELECT(.+)").
 		WithArgs(1).
 		WillReturnRows(sqlmock.NewRows([]string{"id", "name", "owner_id"}).AddRow(1, "/", 1))
@@ -171,7 +171,7 @@ func TestFileSystem_List(t *testing.T) {
 	asserts.NoError(err)
 	asserts.NoError(mock.ExpectationsWereMet())
 
-	// 成功，子目录路径不存在
+	// 成功 , 子目录路径不存在
 	mock.ExpectQuery("SELECT(.+)").
 		WithArgs(1).
 		WillReturnRows(sqlmock.NewRows([]string{"id", "name", "owner_id"}).AddRow(1, "/", 1))
@@ -215,7 +215,7 @@ func TestFileSystem_CreateDirectory(t *testing.T) {
 	asserts.Equal(ErrFileExisted, err)
 	asserts.NoError(mock.ExpectationsWereMet())
 
-	// 存在同名目录，直接返回
+	// 存在同名目录 , 直接返回
 	mock.ExpectQuery("SELECT(.+)").
 		WithArgs(1).
 		WillReturnRows(sqlmock.NewRows([]string{"id", "owner_id"}).AddRow(1, 1))
@@ -455,7 +455,7 @@ func TestFileSystem_Delete(t *testing.T) {
 	}}
 	ctx := context.Background()
 
-	//全部未成功，强制
+	//全部未成功 , 强制
 	{
 		fs.CleanTargets()
 		mock.ExpectQuery("SELECT(.+)").
@@ -766,21 +766,21 @@ func TestFileSystem_Rename(t *testing.T) {
 		asserts.Equal(ErrPathNotExist, err)
 	}
 
-	// 新名字是目录，不合法
+	// 新名字是目录 , 不合法
 	{
 		err := fs.Rename(ctx, []uint{10}, []uint{}, "ne/w")
 		asserts.Error(err)
 		asserts.Equal(ErrIllegalObjectName, err)
 	}
 
-	// 新名字是文件，不合法
+	// 新名字是文件 , 不合法
 	{
 		err := fs.Rename(ctx, []uint{}, []uint{10}, "ne/w")
 		asserts.Error(err)
 		asserts.Equal(ErrIllegalObjectName, err)
 	}
 
-	// 新名字是文件，扩展名不合法
+	// 新名字是文件 , 扩展名不合法
 	{
 		fs.Policy.OptionsSerialized.FileType = []string{"txt"}
 		err := fs.Rename(ctx, []uint{}, []uint{10}, "1.jpg")
@@ -788,7 +788,7 @@ func TestFileSystem_Rename(t *testing.T) {
 		asserts.Equal(ErrIllegalObjectName, err)
 	}
 
-	// 新名字是目录，不应该检测扩展名
+	// 新名字是目录 , 不应该检测扩展名
 	{
 		fs.Policy.OptionsSerialized.FileType = []string{"txt"}
 		mock.ExpectQuery("SELECT(.+)folders(.+)").

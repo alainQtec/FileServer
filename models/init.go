@@ -35,12 +35,12 @@ func Init() {
 	}
 
 	if gin.Mode() == gin.TestMode {
-		// 测试模式下，使用内存数据库
+		// 测试模式下 , 使用内存数据库
 		db, err = gorm.Open("sqlite", ":memory:")
 	} else {
 		switch confDBType {
 		case "UNSET", "sqlite":
-			// 未指定数据库或者明确指定为 sqlite 时，使用 SQLite 数据库
+			// 未指定数据库或者明确指定为 sqlite 时 , 使用 SQLite 数据库
 			db, err = gorm.Open("sqlite", util.RelativePath(conf.DatabaseConfig.DBFile))
 		case "postgres":
 			db, err = gorm.Open(confDBType, fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%d sslmode=disable",
@@ -81,7 +81,7 @@ func Init() {
 		return conf.DatabaseConfig.TablePrefix + defaultTableName
 	}
 
-	// Debug模式下，输出所有 SQL 日志
+	// Debug模式下 , 输出所有 SQL 日志
 	if conf.SystemConfig.Debug {
 		db.LogMode(true)
 	} else {

@@ -70,7 +70,7 @@ func (service *DownloadTaskService) Delete(c *gin.Context) serializer.Response {
 	}
 
 	if download.Status >= common.Error && download.Status <= common.Unknown {
-		// 如果任务已完成，则删除任务记录
+		// 如果任务已完成 , 则删除任务记录
 		if err := download.Delete(); err != nil {
 			return serializer.DBErr("Failed to delete task record", err)
 		}

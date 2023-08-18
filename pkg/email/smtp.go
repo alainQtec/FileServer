@@ -106,7 +106,7 @@ func (client *SMTP) Init() {
 				} else {
 					util.Log().Debug("Email sent.")
 				}
-			// 长时间没有新邮件，则关闭SMTP连接
+			// 长时间没有新邮件 , 则关闭SMTP连接
 			case <-time.After(time.Duration(client.Config.Keepalive) * time.Second):
 				if open {
 					if err := s.Close(); err != nil {

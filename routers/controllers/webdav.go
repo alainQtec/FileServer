@@ -27,7 +27,7 @@ func init() {
 func ServeWebDAV(c *gin.Context) {
 	fs, err := filesystem.NewFileSystemFromContext(c)
 	if err != nil {
-		util.Log().Warning("Failed to initialize filesystem for WebDAV，%s", err)
+		util.Log().Warning("Failed to initialize filesystem for WebDAV , %s", err)
 		return
 	}
 

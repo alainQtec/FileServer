@@ -691,7 +691,7 @@ func TestFile_CreateOrGetSourceLink(t *testing.T) {
 	file := &File{}
 	file.ID = 1
 
-	// 已存在，返回老的 SourceLink
+	// 已存在 , 返回老的 SourceLink
 	{
 		mock.ExpectQuery("SELECT(.+)source_links(.+)").WithArgs(1).WillReturnRows(sqlmock.NewRows([]string{"id"}).AddRow(2))
 		res, err := file.CreateOrGetSourceLink()
@@ -700,7 +700,7 @@ func TestFile_CreateOrGetSourceLink(t *testing.T) {
 		a.NoError(mock.ExpectationsWereMet())
 	}
 
-	// 不存在，插入失败
+	// 不存在 , 插入失败
 	{
 		expectedErr := errors.New("error")
 		mock.ExpectQuery("SELECT(.+)source_links(.+)").WithArgs(1).WillReturnRows(sqlmock.NewRows([]string{"id"}))

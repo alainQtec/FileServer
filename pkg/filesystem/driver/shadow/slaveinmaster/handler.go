@@ -18,7 +18,7 @@ import (
 	"github.com/alainQtec/FileServer/v3/pkg/serializer"
 )
 
-// Driver 影子存储策略，将上传任务指派给从机节点处理，并等待从机通知上传结果
+// Driver 影子存储策略 , 将上传任务指派给从机节点处理 , 并等待从机通知上传结果
 type Driver struct {
 	node    cluster.Node
 	handler driver.Handler

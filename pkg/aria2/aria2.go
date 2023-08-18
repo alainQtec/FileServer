@@ -39,7 +39,7 @@ func Init(isReload bool, pool cluster.Pool, mqClient mq.MQ) {
 	Lock.Unlock()
 
 	if !isReload {
-		// 从数据库中读取未完成任务，创建监控
+		// 从数据库中读取未完成任务 , 创建监控
 		unfinished := model.GetDownloadsByStatus(common.Ready, common.Paused, common.Downloading, common.Seeding)
 
 		for i := 0; i < len(unfinished); i++ {
@@ -49,7 +49,7 @@ func Init(isReload bool, pool cluster.Pool, mqClient mq.MQ) {
 	}
 }
 
-// TestRPCConnection 发送测试用的 RPC 请求，测试服务连通性
+// TestRPCConnection 发送测试用的 RPC 请求 , 测试服务连通性
 func TestRPCConnection(server, secret string, timeout int) (rpc.VersionInfo, error) {
 	// 解析RPC服务地址
 	rpcServer, err := url.Parse(server)

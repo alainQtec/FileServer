@@ -33,7 +33,7 @@ func (folder *Folder) Create() (uint, error) {
 	return folder.ID, nil
 }
 
-// GetChild 返回folder下名为name的子目录，不存在则返回错误
+// GetChild 返回folder下名为name的子目录 , 不存在则返回错误
 func (folder *Folder) GetChild(name string) (*Folder, error) {
 	var resFolder Folder
 	err := DB.
@@ -80,7 +80,7 @@ func (folder *Folder) GetChildFolder() ([]Folder, error) {
 	return folders, result.Error
 }
 
-// GetRecursiveChildFolder 查找所有递归子目录，包括自身
+// GetRecursiveChildFolder 查找所有递归子目录 , 包括自身
 func GetRecursiveChildFolder(dirs []uint, uid uint, includeSelf bool) ([]Folder, error) {
 	folders := make([]Folder, 0, len(dirs))
 	var err error
@@ -141,7 +141,7 @@ func GetFoldersByIDs(ids []uint, uid uint) ([]Folder, error) {
 	return folders, result.Error
 }
 
-// MoveOrCopyFileTo 将此目录下的files移动或复制至dstFolder，
+// MoveOrCopyFileTo 将此目录下的files移动或复制至dstFolder ,
 // 返回此操作新增的容量
 func (folder *Folder) MoveOrCopyFileTo(files []uint, dstFolder *Folder, isCopy bool) (uint64, error) {
 	// 已复制文件的总大小
@@ -288,11 +288,11 @@ func (folder *Folder) CopyFolderTo(folderID uint, dstFolder *Folder) (size uint6
 
 }
 
-// MoveFolderTo 将folder目录下的dirs子目录复制或移动到dstFolder，
+// MoveFolderTo 将folder目录下的dirs子目录复制或移动到dstFolder ,
 // 返回此过程中增加的容量
 func (folder *Folder) MoveFolderTo(dirs []uint, dstFolder *Folder) error {
 
-	// 如果目标位置为待移动的目录，会导致 parent 为自己
+	// 如果目标位置为待移动的目录 , 会导致 parent 为自己
 	// 造成死循环且无法被除搜索以外的组件展示
 	if folder.OwnerID == dstFolder.OwnerID && util.ContainsUint(dirs, dstFolder.ID) {
 		return errors.New("cannot move a folder into itself")

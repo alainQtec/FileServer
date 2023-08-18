@@ -592,7 +592,7 @@ func TestIsAdmin(t *testing.T) {
 		asserts.False(c.IsAborted())
 	}
 
-	// 初始用户，非管理组
+	// 初始用户 , 非管理组
 	{
 		c, _ := gin.CreateTestContext(rec)
 		user := &model.User{}

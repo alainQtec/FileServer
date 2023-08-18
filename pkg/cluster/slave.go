@@ -88,7 +88,7 @@ func (node *SlaveNode) SubscribeStatusChange(callback func(bool, uint)) {
 	node.lock.Unlock()
 }
 
-// Ping 从机节点，返回从机负载
+// Ping 从机节点 , 返回从机负载
 func (node *SlaveNode) Ping(req *serializer.NodePingReq) (*serializer.NodePingResp, error) {
 	node.lock.RLock()
 	defer node.lock.RUnlock()

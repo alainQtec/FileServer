@@ -22,7 +22,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// SingleFileService 对单文件进行操作的五福，path为文件完整路径
+// SingleFileService 对单文件进行操作的五福 , path为文件完整路径
 type SingleFileService struct {
 	Path string `uri:"path" json:"path" binding:"required,min=1,max=65535"`
 }
@@ -192,7 +192,7 @@ func (service *FileAnonymousGetService) Source(ctx context.Context, c *gin.Conte
 	}
 }
 
-// CreateDocPreviewSession 创建DOC文件预览会话，返回预览地址
+// CreateDocPreviewSession 创建DOC文件预览会话 , 返回预览地址
 func (service *FileIDService) CreateDocPreviewSession(ctx context.Context, c *gin.Context, editable bool) serializer.Response {
 	// 创建文件系统
 	fs, err := filesystem.NewFileSystemFromContext(c)
@@ -204,13 +204,13 @@ func (service *FileIDService) CreateDocPreviewSession(ctx context.Context, c *gi
 	// 获取对象id
 	objectID, _ := c.Get("object_id")
 
-	// 如果上下文中已有File对象，则重设目标
+	// 如果上下文中已有File对象 , 则重设目标
 	if file, ok := ctx.Value(fsctx.FileModelCtx).(*model.File); ok {
 		fs.SetTargetFile(&[]model.File{*file})
 		objectID = uint(0)
 	}
 
-	// 如果上下文中已有Folder对象，则重设根目录
+	// 如果上下文中已有Folder对象 , 则重设根目录
 	if folder, ok := ctx.Value(fsctx.FolderModelCtx).(*model.Folder); ok {
 		fs.Root = folder
 		path := ctx.Value(fsctx.PathCtx).(string)
@@ -275,7 +275,7 @@ func (service *FileIDService) CreateDocPreviewSession(ctx context.Context, c *gi
 	}
 }
 
-// CreateDownloadSession 创建下载会话，获取下载URL
+// CreateDownloadSession 创建下载会话 , 获取下载URL
 func (service *FileIDService) CreateDownloadSession(ctx context.Context, c *gin.Context) serializer.Response {
 	// 创建文件系统
 	fs, err := filesystem.NewFileSystemFromContext(c)
@@ -299,7 +299,7 @@ func (service *FileIDService) CreateDownloadSession(ctx context.Context, c *gin.
 	}
 }
 
-// Download 通过签名URL的文件下载，无需登录
+// Download 通过签名URL的文件下载 , 无需登录
 func (service *DownloadService) Download(ctx context.Context, c *gin.Context) serializer.Response {
 	// 创建文件系统
 	fs, err := filesystem.NewFileSystemFromContext(c)
@@ -327,7 +327,7 @@ func (service *DownloadService) Download(ctx context.Context, c *gin.Context) se
 	c.Header("Content-Disposition", "attachment; filename=\""+url.PathEscape(fs.FileTarget[0].Name)+"\"")
 
 	if fs.User.Group.OptionsSerialized.OneTimeDownload {
-		// 清理资源，删除临时文件
+		// 清理资源 , 删除临时文件
 		_ = cache.Deletes([]string{service.ID}, "download_")
 	}
 
@@ -339,7 +339,7 @@ func (service *DownloadService) Download(ctx context.Context, c *gin.Context) se
 	}
 }
 
-// PreviewContent 预览文件，需要登录会话, isText - 是否为文本文件，文本文件会
+// PreviewContent 预览文件 , 需要登录会话, isText - 是否为文本文件 , 文本文件会
 // 强制经由服务端中转
 func (service *FileIDService) PreviewContent(ctx context.Context, c *gin.Context, isText bool) serializer.Response {
 	// 创建文件系统
@@ -352,13 +352,13 @@ func (service *FileIDService) PreviewContent(ctx context.Context, c *gin.Context
 	// 获取对象id
 	objectID, _ := c.Get("object_id")
 
-	// 如果上下文中已有File对象，则重设目标
+	// 如果上下文中已有File对象 , 则重设目标
 	if file, ok := ctx.Value(fsctx.FileModelCtx).(*model.File); ok {
 		fs.SetTargetFile(&[]model.File{*file})
 		objectID = uint(0)
 	}
 
-	// 如果上下文中已有Folder对象，则重设根目录
+	// 如果上下文中已有Folder对象 , 则重设根目录
 	if folder, ok := ctx.Value(fsctx.FolderModelCtx).(*model.Folder); ok {
 		fs.Root = folder
 		path := ctx.Value(fsctx.PathCtx).(string)
@@ -436,7 +436,7 @@ func (service *FileIDService) PutContent(ctx context.Context, c *gin.Context) se
 	// 检查此文件是否有软链接
 	fileList, err := model.RemoveFilesWithSoftLinks([]model.File{originFile[0]})
 	if err == nil && len(fileList) == 0 {
-		// 如果包含软连接，应重新生成新文件副本，并更新source_name
+		// 如果包含软连接 , 应重新生成新文件副本 , 并更新source_name
 		originFile[0].SourceName = fs.GenerateSavePath(uploadCtx, &fileData)
 		fileData.Mode &= ^fsctx.Overwrite
 		fs.Use("AfterUpload", filesystem.HookUpdateSourceName)

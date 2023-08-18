@@ -267,7 +267,7 @@ func (handler *Driver) Put(ctx context.Context, file fsctx.FileHeader) error {
 	return err
 }
 
-// Delete 删除一个或多个文件，
+// Delete 删除一个或多个文件 ,
 // 返回未删除的文件
 func (handler *Driver) Delete(ctx context.Context, files []string) ([]string, error) {
 	// 删除文件

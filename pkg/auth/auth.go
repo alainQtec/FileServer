@@ -36,7 +36,7 @@ type Auth interface {
 	Check(body string, sign string) error
 }
 
-// SignRequest 对PUT\POST等复杂HTTP请求签名，只会对URI部分、
+// SignRequest 对PUT\POST等复杂HTTP请求签名 , 只会对URI部分、
 // 请求正文、`X-Cr-`开头的header进行签名
 func SignRequest(instance Auth, r *http.Request, expires int64) *http.Request {
 	// 处理有效期
@@ -66,7 +66,7 @@ func CheckRequest(instance Auth, r *http.Request) error {
 	return instance.Check(getSignContent(r), sign[0])
 }
 
-// getSignContent 签名请求 path、正文、以`X-`开头的 Header. 如果请求 path 为从机上传 API，
+// getSignContent 签名请求 path、正文、以`X-`开头的 Header. 如果请求 path 为从机上传 API ,
 // 则不对正文签名。返回待签名/验证的字符串
 func getSignContent(r *http.Request) (rawSignString string) {
 	// 读取所有body正文
@@ -94,7 +94,7 @@ func getSignContent(r *http.Request) (rawSignString string) {
 	return rawSignString
 }
 
-// SignURI 对URI进行签名,签名只针对Path部分，query部分不做验证
+// SignURI 对URI进行签名,签名只针对Path部分 , query部分不做验证
 func SignURI(instance Auth, uri string, expires int64) (*url.URL, error) {
 	// 处理有效期
 	if expires != 0 {

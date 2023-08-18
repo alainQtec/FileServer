@@ -39,7 +39,7 @@ type ItemService struct {
 	Dirs  []uint `json:"dirs"`
 }
 
-// ItemIDService 处理多文件/目录相关服务，字段值为HashID，可通过Raw()方法获取原始ID
+// ItemIDService 处理多文件/目录相关服务 , 字段值为HashID , 可通过Raw()方法获取原始ID
 type ItemIDService struct {
 	Items      []string `json:"items"`
 	Dirs       []string `json:"dirs"`
@@ -73,7 +73,7 @@ func init() {
 	gob.Register(ItemIDService{})
 }
 
-// Raw 批量解码HashID，获取原始ID
+// Raw 批量解码HashID , 获取原始ID
 func (service *ItemIDService) Raw() *ItemService {
 	if service.Source != nil {
 		return service.Source
@@ -175,7 +175,7 @@ func (service *ItemCompressService) CreateCompressTask(c *gin.Context) serialize
 		service.Name += ".zip"
 	}
 
-	// 存放目录是否存在，是否重名
+	// 存放目录是否存在 , 是否重名
 	if exist, _ := fs.IsPathExist(service.Dst); !exist {
 		return serializer.Err(serializer.CodeParentNotExist, "", nil)
 	}
@@ -455,7 +455,7 @@ func (service *ItemPropertyService) GetProperty(ctx context.Context, c *gin.Cont
 			props.Path = folder[0].Position
 		}
 
-		// 如果列取对象是目录，则缓存结果
+		// 如果列取对象是目录 , 则缓存结果
 		cache.Set(fmt.Sprintf("folder_props_%d", res), props,
 			model.GetIntSetting("folder_props_timeout", 300))
 	}

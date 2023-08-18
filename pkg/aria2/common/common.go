@@ -65,7 +65,7 @@ func (instance *DummyAria2) Init() error {
 	return nil
 }
 
-// CreateTask 创建新任务，此处直接返回未开启错误
+// CreateTask 创建新任务 , 此处直接返回未开启错误
 func (instance *DummyAria2) CreateTask(model *model.Download, options map[string]interface{}) (string, error) {
 	return "", ErrNotEnabled
 }

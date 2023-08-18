@@ -18,7 +18,7 @@ var Store sessions.Store
 
 // Session 初始化session
 func Session(secret string) gin.HandlerFunc {
-	// Redis设置不为空，且非测试模式时使用Redis
+	// Redis设置不为空 , 且非测试模式时使用Redis
 	Store = sessionstore.NewStore(cache.Store, []byte(secret))
 
 	sameSiteMode := http.SameSiteDefaultMode

@@ -31,7 +31,7 @@ func (pool *AsyncPool) Add(num int) {
 func (pool *AsyncPool) obtainWorker() Worker {
 	select {
 	case <-pool.idleWorker:
-		// 有空闲Worker名额时，返回新Worker
+		// 有空闲Worker名额时 , 返回新Worker
 		return &GeneralWorker{}
 	}
 }

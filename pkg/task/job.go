@@ -60,7 +60,7 @@ type Job interface {
 	SetStatus(int)       // 设定任务状态
 	Do()                 // 开始执行任务
 	SetError(*JobError)  // 设定任务失败信息
-	GetError() *JobError // 获取任务执行结果，返回nil表示成功完成执行
+	GetError() *JobError // 获取任务执行结果 , 返回nil表示成功完成执行
 }
 
 // JobError 任务失败信息

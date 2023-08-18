@@ -19,7 +19,7 @@ import (
 )
 
 const scfFunc = `# -*- coding: utf8 -*-
-# SCF配置COS触发，向 FileServer 发送回调
+# SCF配置COS触发 , 向 FileServer 发送回调
 from qcloud_cos_v5 import CosConfig
 from qcloud_cos_v5 import CosS3Client
 from qcloud_cos_v5 import CosServiceError

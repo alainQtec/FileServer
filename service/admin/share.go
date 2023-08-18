@@ -51,7 +51,7 @@ func (service *AdminListService) Shares() serializer.Response {
 	// 查询记录
 	tx.Limit(service.PageSize).Offset((service.Page - 1) * service.PageSize).Find(&res)
 
-	// 查询对应用户，同时计算HashID
+	// 查询对应用户 , 同时计算HashID
 	users := make(map[uint]model.User)
 	hashIDs := make(map[uint]string, len(res))
 	for _, file := range res {

@@ -235,7 +235,7 @@ func TestHandler_Source(t *testing.T) {
 		asserts.Contains(sourceURL, "https://cqu.edu.cn")
 	}
 
-	// 设定了CDN，解析失败
+	// 设定了CDN , 解析失败
 	{
 		handler.Policy.BaseURL = string([]byte{0x7f})
 		file := model.File{

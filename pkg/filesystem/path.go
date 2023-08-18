@@ -24,7 +24,7 @@ func (fs *FileSystem) IsPathExist(path string) (bool, *model.Folder) {
 	// TODO:测试新增
 	var currentFolder *model.Folder
 
-	// 如果已设定跟目录对象，则从给定目录向下遍历
+	// 如果已设定跟目录对象 , 则从给定目录向下遍历
 	if fs.Root != nil {
 		currentFolder = fs.Root
 	}

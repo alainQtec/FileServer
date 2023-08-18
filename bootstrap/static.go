@@ -89,7 +89,7 @@ func InitStatic(statics fs.FS) {
 	}
 
 	if v.Version != conf.RequiredStaticVersion {
-		util.Log().Warning("Static resource version mismatch [Current %s, Desired: %s]，please delete \"statics\" folder and rebuild it.", v.Version, conf.RequiredStaticVersion)
+		util.Log().Warning("Static resource version mismatch [Current %s, Desired: %s] , please delete \"statics\" folder and rebuild it.", v.Version, conf.RequiredStaticVersion)
 		return
 	}
 }

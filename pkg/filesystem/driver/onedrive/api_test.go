@@ -502,7 +502,7 @@ func TestClient_UploadChunk(t *testing.T) {
 	client.Credential.ExpiresIn = time.Now().Add(time.Duration(100) * time.Hour).Unix()
 	cg := chunk.NewChunkGroup(&fsctx.FileStream{Size: 15}, 10, &backoff.ConstantBackoff{}, false)
 
-	// 非最后分片，正常
+	// 非最后分片 , 正常
 	{
 		cg.Next()
 		client.Credential.ExpiresIn = time.Now().Add(time.Duration(100) * time.Hour).Unix()
@@ -531,7 +531,7 @@ func TestClient_UploadChunk(t *testing.T) {
 		asserts.Equal("http://dev.com/2", res.UploadURL)
 	}
 
-	// 非最后分片，异常响应
+	// 非最后分片 , 异常响应
 	{
 		client.Credential.ExpiresIn = time.Now().Add(time.Duration(100) * time.Hour).Unix()
 		clientMock := ClientMock{}
@@ -555,7 +555,7 @@ func TestClient_UploadChunk(t *testing.T) {
 		asserts.Nil(res)
 	}
 
-	// 最后分片，正常
+	// 最后分片 , 正常
 	{
 		cg.Next()
 		client.Credential.ExpiresIn = time.Now().Add(time.Duration(100) * time.Hour).Unix()
@@ -580,7 +580,7 @@ func TestClient_UploadChunk(t *testing.T) {
 		asserts.Nil(res)
 	}
 
-	// 最后分片，失败
+	// 最后分片 , 失败
 	{
 		cache.Set("setting_chunk_retries", "1", 0)
 		client.Credential.ExpiresIn = 0
@@ -606,7 +606,7 @@ func TestClient_Upload(t *testing.T) {
 	cache.Set("setting_chunk_retries", "1", 0)
 	cache.Set("setting_use_temp_chunk_buffer", "false", 0)
 
-	// 小文件，简单上传，失败
+	// 小文件 , 简单上传 , 失败
 	{
 		client.Credential.ExpiresIn = 0
 		err := client.Upload(ctx, &fsctx.FileStream{
@@ -791,7 +791,7 @@ func TestClient_BatchDelete(t *testing.T) {
 	client, _ := NewClient(&model.Policy{})
 	client.Credential.AccessToken = "AccessToken"
 
-	// 小于20个，失败1个
+	// 小于20个 , 失败1个
 	{
 		client.Credential.ExpiresIn = time.Now().Add(time.Duration(100) * time.Hour).Unix()
 		clientMock := ClientMock{}
@@ -883,7 +883,7 @@ func TestClient_ListChildren(t *testing.T) {
 	client, _ := NewClient(&model.Policy{})
 	client.Credential.AccessToken = "AccessToken"
 
-	// 根目录，请求失败,重测试
+	// 根目录 , 请求失败,重测试
 	{
 		client.Credential.ExpiresIn = 0
 		res, err := client.ListChildren(context.Background(), "/")
@@ -891,7 +891,7 @@ func TestClient_ListChildren(t *testing.T) {
 		asserts.Empty(res)
 	}
 
-	// 非根目录，未知响应
+	// 非根目录 , 未知响应
 	{
 		client.Credential.ExpiresIn = time.Now().Add(time.Duration(100) * time.Hour).Unix()
 		clientMock := ClientMock{}
@@ -914,7 +914,7 @@ func TestClient_ListChildren(t *testing.T) {
 		asserts.Empty(res)
 	}
 
-	// 非根目录，成功
+	// 非根目录 , 成功
 	{
 		client.Credential.ExpiresIn = time.Now().Add(time.Duration(100) * time.Hour).Unix()
 		clientMock := ClientMock{}
@@ -1041,7 +1041,7 @@ func TestClient_MonitorUpload(t *testing.T) {
 		})
 	}
 
-	// 上传会话到期，仍未完成上传，创建占位符
+	// 上传会话到期 , 仍未完成上传 , 创建占位符
 	{
 		cache.Set("setting_onedrive_monitor_timeout", "600", 0)
 		cache.Set("setting_onedrive_callback_check", "20", 0)
@@ -1050,8 +1050,8 @@ func TestClient_MonitorUpload(t *testing.T) {
 		})
 	}
 
-	fmt.Println("测试:上传已完成，未发送回调")
-	// 上传已完成，未发送回调
+	fmt.Println("测试:上传已完成 , 未发送回调")
+	// 上传已完成 , 未发送回调
 	{
 		cache.Set("setting_onedrive_monitor_timeout", "0", 0)
 		cache.Set("setting_onedrive_callback_check", "0", 0)

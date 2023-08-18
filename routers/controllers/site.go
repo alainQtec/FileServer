@@ -36,7 +36,7 @@ func SiteConfig(c *gin.Context) {
 		wopiExts = wopi.Default.AvailableExts()
 	}
 
-	// 如果已登录，则同时返回用户信息和标签
+	// 如果已登录 , 则同时返回用户信息和标签
 	user, _ := c.Get("user")
 	if user, ok := user.(*model.User); ok {
 		c.JSON(200, serializer.BuildSiteConfig(siteConfig, user, wopiExts))

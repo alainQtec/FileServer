@@ -36,7 +36,7 @@ var colors = map[string]func(a ...interface{}) string{
 	"Debug":   color.New(color.FgWhite).Add(color.Bold).SprintFunc(),
 }
 
-// 不同级别前缀与时间的间隔，保持宽度一致
+// 不同级别前缀与时间的间隔 , 保持宽度一致
 var spaces = map[string]string{
 	"Warning": "",
 	"Panic":   "  ",

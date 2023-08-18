@@ -667,7 +667,7 @@ func InitMasterRouter() *gin.Engine {
 				directory.GET("*path", controllers.ListDirectory)
 			}
 
-			// 对象，文件和目录的抽象
+			// 对象 , 文件和目录的抽象
 			object := auth.Group("object")
 			{
 				// 删除对象

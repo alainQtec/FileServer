@@ -35,7 +35,7 @@ type Download struct {
 	NodeName   string         `gorm:"-"`
 }
 
-// AfterFind 找到下载任务后的钩子，处理Status结构
+// AfterFind 找到下载任务后的钩子 , 处理Status结构
 func (task *Download) AfterFind() (err error) {
 	// 解析状态
 	if task.Attrs != "" {
@@ -84,7 +84,7 @@ func GetDownloadsByStatus(status ...int) []Download {
 }
 
 // GetDownloadsByStatusAndUser 根据状态检索和用户ID下载
-// page 为 0 表示列出所有，非零时分页
+// page 为 0 表示列出所有 , 非零时分页
 func GetDownloadsByStatusAndUser(page, uid uint, status ...int) []Download {
 	var tasks []Download
 	dbChain := DB

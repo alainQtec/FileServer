@@ -41,7 +41,7 @@ func (fs *FileSystem) CleanHooks(name string) {
 }
 
 // Trigger 触发钩子,遇到第一个错误时
-// 返回错误，后续钩子不会继续执行
+// 返回错误 , 后续钩子不会继续执行
 func (fs *FileSystem) Trigger(ctx context.Context, name string, file fsctx.FileHeader) error {
 	if hooks, ok := fs.Hooks[name]; ok {
 		for _, hook := range hooks {
@@ -190,7 +190,7 @@ func SlaveAfterUpload(session *serializer.UploadSession) Hook {
 	}
 }
 
-// GenericAfterUpload 文件上传完成后，包含数据库操作
+// GenericAfterUpload 文件上传完成后 , 包含数据库操作
 func GenericAfterUpload(ctx context.Context, fs *FileSystem, fileHeader fsctx.FileHeader) error {
 	fileInfo := fileHeader.Info()
 

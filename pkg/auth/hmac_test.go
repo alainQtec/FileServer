@@ -51,7 +51,7 @@ func TestHMACAuth_Check(t *testing.T) {
 		SecretKey: []byte(util.RandStringRunes(256)),
 	}
 
-	// 正常，永不过期
+	// 正常 , 永不过期
 	{
 		sign := auth.Sign("content", 0)
 		asserts.NoError(auth.Check("content", sign))

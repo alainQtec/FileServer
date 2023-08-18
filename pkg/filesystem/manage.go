@@ -55,7 +55,7 @@ func (fs *FileSystem) Rename(ctx context.Context, dir, file []uint, new string) 
 	return ErrPathNotExist
 }
 
-// Copy 复制src目录下的文件或目录到dst，
+// Copy 复制src目录下的文件或目录到dst ,
 // 暂时只支持单文件
 func (fs *FileSystem) Copy(ctx context.Context, dirs, files []uint, src, dst string) error {
 	// 获取目的目录
@@ -130,8 +130,8 @@ func (fs *FileSystem) Move(ctx context.Context, dirs, files []uint, src, dst str
 	return err
 }
 
-// Delete 递归删除对象, force 为 true 时强制删除文件记录，忽略物理删除是否成功;
-// unlink 为 true 时只删除虚拟文件系统的文件记录，不删除物理文件。
+// Delete 递归删除对象, force 为 true 时强制删除文件记录 , 忽略物理删除是否成功;
+// unlink 为 true 时只删除虚拟文件系统的文件记录 , 不删除物理文件。
 func (fs *FileSystem) Delete(ctx context.Context, dirs, files []uint, force, unlink bool) error {
 	// 已删除的文件ID
 	var deletedFiles = make([]*model.File, 0, len(fs.FileTarget))
@@ -182,7 +182,7 @@ func (fs *FileSystem) Delete(ctx context.Context, dirs, files []uint, force, unl
 		allFiles = append(allFiles, &fs.FileTarget[i])
 	}
 
-	// 如果强制删除，则将全部文件视为删除成功
+	// 如果强制删除 , 则将全部文件视为删除成功
 	if force {
 		deletedFiles = allFiles
 	}
@@ -202,7 +202,7 @@ func (fs *FileSystem) Delete(ctx context.Context, dirs, files []uint, force, unl
 
 	model.DeleteShareBySourceIDs(deletedFileIDs, false)
 
-	// 如果文件全部删除成功，继续删除目录
+	// 如果文件全部删除成功 , 继续删除目录
 	if len(deletedFiles) == len(allFiles) {
 		var allFolderIDs = make([]uint, 0, len(fs.DirTarget))
 		for _, value := range fs.DirTarget {
@@ -228,7 +228,7 @@ func (fs *FileSystem) Delete(ctx context.Context, dirs, files []uint, force, unl
 	return nil
 }
 
-// ListDeleteDirs 递归列出要删除目录，及目录下所有文件
+// ListDeleteDirs 递归列出要删除目录 , 及目录下所有文件
 func (fs *FileSystem) ListDeleteDirs(ctx context.Context, ids []uint) error {
 	// 列出所有递归子目录
 	folders, err := model.GetRecursiveChildFolder(ids, fs.User.ID, true)
@@ -268,7 +268,7 @@ func (fs *FileSystem) ListDeleteFiles(ctx context.Context, ids []uint) error {
 
 // List 列出路径下的内容,
 // pathProcessor为最终对象路径的处理钩子。
-// 有些情况下（如在分享页面列对象）时，
+// 有些情况下（如在分享页面列对象）时 ,
 // 路径需要截取掉被分享目录路径之前的部分。
 func (fs *FileSystem) List(ctx context.Context, dirPath string, pathProcessor func(string) string) ([]serializer.Object, error) {
 	// 获取父目录
@@ -298,7 +298,7 @@ func (fs *FileSystem) ListPhysical(ctx context.Context, dirPath string) ([]seria
 		return nil, ErrUnknownPolicyType
 	}
 
-	// 存储策略不支持列取时，返回空结果
+	// 存储策略不支持列取时 , 返回空结果
 	if !fs.Policy.CanStructureBeListed() {
 		return nil, nil
 	}
@@ -337,8 +337,8 @@ func (fs *FileSystem) listObjects(ctx context.Context, parent string, files []mo
 	var processedPath string
 
 	for _, subFolder := range folders {
-		// 路径处理钩子，
-		// 所有对象父目录都是一样的，所以只处理一次
+		// 路径处理钩子 ,
+		// 所有对象父目录都是一样的 , 所以只处理一次
 		if processedPath == "" {
 			if pathProcessor != nil {
 				processedPath = pathProcessor(parent)
@@ -389,7 +389,7 @@ func (fs *FileSystem) listObjects(ctx context.Context, parent string, files []mo
 	return objects
 }
 
-// CreateDirectory 根据给定的完整创建目录，支持递归创建。如果目录已存在，则直接
+// CreateDirectory 根据给定的完整创建目录 , 支持递归创建。如果目录已存在 , 则直接
 // 返回已存在的目录。
 func (fs *FileSystem) CreateDirectory(ctx context.Context, fullPath string) (*model.Folder, error) {
 	if fullPath == "." || fullPath == "" {

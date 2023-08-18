@@ -258,13 +258,13 @@ func (client *Client) Upload(ctx context.Context, file fsctx.FileHeader) error {
 	size := int(fileInfo.Size)
 	dst := fileInfo.SavePath
 
-	// 小文件，使用简单上传接口上传
+	// 小文件 , 使用简单上传接口上传
 	if size <= int(SmallFileSize) {
 		_, err := client.SimpleUpload(ctx, dst, file, int64(size), WithConflictBehavior(overwrite))
 		return err
 	}
 
-	// 大文件，进行分片
+	// 大文件 , 进行分片
 	// 创建上传会话
 	uploadURL, err := client.CreateUploadSession(ctx, dst, WithConflictBehavior(overwrite))
 	if err != nil {
@@ -332,8 +332,8 @@ func (client *Client) SimpleUpload(ctx context.Context, dst string, body io.Read
 	return &uploadRes, nil
 }
 
-// BatchDelete 并行删除给出的文件，返回删除失败的文件，及第一个遇到的错误。此方法将文件分为
-// 20个一组，调用Delete并行删除
+// BatchDelete 并行删除给出的文件 , 返回删除失败的文件 , 及第一个遇到的错误。此方法将文件分为
+// 20个一组 , 调用Delete并行删除
 // TODO 测试
 func (client *Client) BatchDelete(ctx context.Context, dst []string) ([]string, error) {
 	groupNum := len(dst)/20 + 1
@@ -353,8 +353,8 @@ func (client *Client) BatchDelete(ctx context.Context, dst []string) ([]string, 
 	return finalRes, err
 }
 
-// Delete 并行删除文件，返回删除失败的文件，及第一个遇到的错误，
-// 由于API限制，最多删除20个
+// Delete 并行删除文件 , 返回删除失败的文件 , 及第一个遇到的错误 ,
+// 由于API限制 , 最多删除20个
 func (client *Client) Delete(ctx context.Context, dst []string) ([]string, error) {
 	body := client.makeBatchDeleteRequestsBody(dst)
 	res, err := client.requestWithStr(ctx, "POST", client.getRequestURL("$batch",
@@ -457,7 +457,7 @@ func (client *Client) MonitorUpload(uploadURL, callbackKey, path string, size ui
 			util.Log().Debug("Client finished OneDrive callback.")
 			return
 		case <-time.After(time.Duration(ttl) * time.Second):
-			// 上传会话到期，仍未完成上传，创建占位符
+			// 上传会话到期 , 仍未完成上传 , 创建占位符
 			client.DeleteUploadSession(context.Background(), uploadURL)
 			_, err := client.SimpleUpload(context.Background(), path, strings.NewReader(""), 0, WithConflictBehavior("replace"))
 			if err != nil {
@@ -490,7 +490,7 @@ func (client *Client) MonitorUpload(uploadURL, callbackKey, path string, size ui
 				continue
 			}
 
-			// 成功获取分片上传状态，检查文件大小
+			// 成功获取分片上传状态 , 检查文件大小
 			if len(status.NextExpectedRanges) == 0 {
 				continue
 			}
@@ -504,12 +504,12 @@ func (client *Client) MonitorUpload(uploadURL, callbackKey, path string, size ui
 			uploadFullSize, _ := strconv.ParseUint(sizeRange[1], 10, 64)
 			if (sizeRange[0] == "0" && sizeRange[1] == "") || uploadFullSize+1 != size {
 				util.Log().Debug("Upload has not started, or uploaded file size not match, canceling upload session...")
-				// 取消上传会话，实测OneDrive取消上传会话后，客户端还是可以上传，
-				// 所以上传一个空文件占位，阻止客户端上传
+				// 取消上传会话 , 实测OneDrive取消上传会话后 , 客户端还是可以上传 ,
+				// 所以上传一个空文件占位 , 阻止客户端上传
 				client.DeleteUploadSession(context.Background(), uploadURL)
 				_, err := client.SimpleUpload(context.Background(), path, strings.NewReader(""), 0, WithConflictBehavior("replace"))
 				if err != nil {
-					util.Log().Debug("无法创建占位文件，%s", err)
+					util.Log().Debug("无法创建占位文件 , %s", err)
 				}
 				return
 			}

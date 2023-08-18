@@ -45,7 +45,7 @@ func GetGroupByID(ID interface{}) (Group, error) {
 	return group, result.Error
 }
 
-// AfterFind 找到用户组后的钩子，处理Policy列表
+// AfterFind 找到用户组后的钩子 , 处理Policy列表
 func (group *Group) AfterFind() (err error) {
 	// 解析用户组策略列表
 	if group.Policies != "" {

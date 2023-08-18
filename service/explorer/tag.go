@@ -59,7 +59,7 @@ func (service *LinkTagCreateService) Create(c *gin.Context, user *model.User) se
 
 // Create 创建标签
 func (service *FilterTagCreateService) Create(c *gin.Context, user *model.User) serializer.Response {
-	// 分割表达式，将通配符转换为SQL内的%
+	// 分割表达式 , 将通配符转换为SQL内的%
 	expressions := strings.Split(service.Expression, "\n")
 	for i := 0; i < len(expressions); i++ {
 		expressions[i] = strings.ReplaceAll(expressions[i], "*", "%")

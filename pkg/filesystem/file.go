@@ -32,7 +32,7 @@ func (r lrs) Read(p []byte) (int, error) {
 
 // withSpeedLimit 给原有的ReadSeeker加上限速
 func (fs *FileSystem) withSpeedLimit(rs response.RSCloser) response.RSCloser {
-	// 如果用户组有速度限制，就返回限制流速的ReaderSeeker
+	// 如果用户组有速度限制 , 就返回限制流速的ReaderSeeker
 	if fs.User.Group.SpeedLimit != 0 {
 		speed := fs.User.Group.SpeedLimit
 		bucket := ratelimit.NewBucketWithRate(float64(speed), int64(speed))
@@ -95,15 +95,15 @@ func (fs *FileSystem) GetPhysicalFileContent(ctx context.Context, path string) (
 // Preview 预览文件
 //
 //	path   -   文件虚拟路径
-//	isText -   是否为文本文件，文本文件会忽略重定向，直接由
-//	           服务端拉取中转给用户，故会对文件大小进行限制
+//	isText -   是否为文本文件 , 文本文件会忽略重定向 , 直接由
+//	           服务端拉取中转给用户 , 故会对文件大小进行限制
 func (fs *FileSystem) Preview(ctx context.Context, id uint, isText bool) (*response.ContentResponse, error) {
 	err := fs.resetFileIDIfNotExist(ctx, id)
 	if err != nil {
 		return nil, err
 	}
 
-	// 如果是文本文件预览，需要检查大小限制
+	// 如果是文本文件预览 , 需要检查大小限制
 	sizeLimit := model.GetIntSetting("maxEditSize", 2<<20)
 	if isText && fs.FileTarget[0].Size > uint64(sizeLimit) {
 		return nil, ErrFileSizeTooBig
@@ -148,7 +148,7 @@ func (fs *FileSystem) GetDownloadContent(ctx context.Context, id uint) (response
 
 }
 
-// GetContent 获取文件内容，path为虚拟路径
+// GetContent 获取文件内容 , path为虚拟路径
 func (fs *FileSystem) GetContent(ctx context.Context, id uint) (response.RSCloser, error) {
 	err := fs.resetFileIDIfNotExist(ctx, id)
 	if err != nil {
@@ -165,7 +165,7 @@ func (fs *FileSystem) GetContent(ctx context.Context, id uint) (response.RSClose
 	return rs, nil
 }
 
-// deleteGroupedFile 对分组好的文件执行删除操作，
+// deleteGroupedFile 对分组好的文件执行删除操作 ,
 // 返回每个分组失败的文件列表
 func (fs *FileSystem) deleteGroupedFile(ctx context.Context, files map[uint][]*model.File) map[uint][]string {
 	// 失败的文件列表
@@ -228,10 +228,10 @@ func (fs *FileSystem) GroupFileByPolicy(ctx context.Context, files []model.File)
 
 	for key := range files {
 		if file, ok := policyGroup[files[key].PolicyID]; ok {
-			// 如果已存在分组，直接追加
+			// 如果已存在分组 , 直接追加
 			policyGroup[files[key].PolicyID] = append(file, &files[key])
 		} else {
-			// 分组不存在，创建
+			// 分组不存在 , 创建
 			policyGroup[files[key].PolicyID] = make([]*model.File, 0)
 			policyGroup[files[key].PolicyID] = append(policyGroup[files[key].PolicyID], &files[key])
 		}
@@ -308,7 +308,7 @@ func (fs *FileSystem) SignURL(ctx context.Context, file *model.File, ttl int64, 
 	return source, nil
 }
 
-// ResetFileIfNotExist 重设当前目标文件为 path，如果当前目标为空
+// ResetFileIfNotExist 重设当前目标文件为 path , 如果当前目标为空
 func (fs *FileSystem) ResetFileIfNotExist(ctx context.Context, path string) error {
 	// 找到文件
 	if len(fs.FileTarget) == 0 {
@@ -323,7 +323,7 @@ func (fs *FileSystem) ResetFileIfNotExist(ctx context.Context, path string) erro
 	return fs.resetPolicyToFirstFile(ctx)
 }
 
-// ResetFileIfNotExist 重设当前目标文件为 id，如果当前目标为空
+// ResetFileIfNotExist 重设当前目标文件为 id , 如果当前目标为空
 func (fs *FileSystem) resetFileIDIfNotExist(ctx context.Context, id uint) error {
 	// 找到文件
 	if len(fs.FileTarget) == 0 {
@@ -334,7 +334,7 @@ func (fs *FileSystem) resetFileIDIfNotExist(ctx context.Context, id uint) error 
 		fs.FileTarget = []model.File{file[0]}
 	}
 
-	// 如果上下文限制了父目录，则进行检查
+	// 如果上下文限制了父目录 , 则进行检查
 	if parent, ok := ctx.Value(fsctx.LimitParentCtx).(*model.Folder); ok {
 		if parent.ID != fs.FileTarget[0].FolderID {
 			return ErrObjectNotExist
@@ -368,7 +368,7 @@ func (fs *FileSystem) resetPolicyToFirstFile(ctx context.Context) error {
 func (fs *FileSystem) Search(ctx context.Context, keywords ...interface{}) ([]serializer.Object, error) {
 	parents := make([]uint, 0)
 
-	// 如果限定了根目录，则只在这个根目录下搜索。
+	// 如果限定了根目录 , 则只在这个根目录下搜索。
 	if fs.Root != nil {
 		allFolders, err := model.GetRecursiveChildFolder([]uint{fs.Root.ID}, fs.User.ID, true)
 		if err != nil {

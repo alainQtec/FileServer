@@ -71,7 +71,7 @@ func (monitor *Monitor) Loop(mqClient mq.MQ) {
 	}
 }
 
-// Update 更新状态，返回值表示是否退出监控
+// Update 更新状态 , 返回值表示是否退出监控
 func (monitor *Monitor) Update() bool {
 	status, err := monitor.node.GetAria2Instance().Status(monitor.Task)
 
@@ -81,7 +81,7 @@ func (monitor *Monitor) Update() bool {
 
 		// 十次重试后认定为任务失败
 		if monitor.retried > MAX_RETRY {
-			util.Log().Warning("Cannot get status of download task %q，exceed maximum retry threshold: %s",
+			util.Log().Warning("Cannot get status of download task %q , exceed maximum retry threshold: %s",
 				monitor.Task.GID, err)
 			monitor.setErrorStatus(err)
 			monitor.RemoveTempFolder()
@@ -164,7 +164,7 @@ func (monitor *Monitor) UpdateTaskInfo(status rpc.StatusInfo) error {
 	}
 
 	if originSize != monitor.Task.TotalSize {
-		// 文件大小更新后，对文件限制等进行校验
+		// 文件大小更新后 , 对文件限制等进行校验
 		if err := monitor.ValidateFile(); err != nil {
 			// 验证失败时取消任务
 			monitor.node.GetAria2Instance().Cancel(monitor.Task)
@@ -219,7 +219,7 @@ func (monitor *Monitor) ValidateFile() error {
 	return nil
 }
 
-// Error 任务下载出错处理，返回是否中断监控
+// Error 任务下载出错处理 , 返回是否中断监控
 func (monitor *Monitor) Error(status rpc.StatusInfo) bool {
 	monitor.setErrorStatus(errors.New(status.ErrorMessage))
 
@@ -234,9 +234,9 @@ func (monitor *Monitor) RemoveTempFolder() {
 	monitor.node.GetAria2Instance().DeleteTempFile(monitor.Task)
 }
 
-// Complete 完成下载，返回是否中断监控
+// Complete 完成下载 , 返回是否中断监控
 func (monitor *Monitor) Complete(pool task.Pool) bool {
-	// 未开始转存，提交转存任务
+	// 未开始转存 , 提交转存任务
 	if monitor.Task.TaskID == 0 {
 		return monitor.transfer(pool)
 	}
@@ -250,7 +250,7 @@ func (monitor *Monitor) Complete(pool task.Pool) bool {
 			return true
 		}
 
-		// 转存完成，回收下载目录
+		// 转存完成 , 回收下载目录
 		if transferTask.Type == task.TransferTaskType && transferTask.Status >= task.Error {
 			job, err := task.NewRecycleTask(monitor.Task)
 			if err != nil {

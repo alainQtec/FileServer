@@ -46,7 +46,7 @@ type SlaveTransferReq struct {
 	Policy *model.Policy `json:"policy"`
 }
 
-// Hash 返回创建请求的唯一标识，保持创建请求幂等
+// Hash 返回创建请求的唯一标识 , 保持创建请求幂等
 func (s *SlaveTransferReq) Hash(id string) string {
 	h := sha1.New()
 	h.Write([]byte(fmt.Sprintf("transfer-%s-%s-%s-%d", id, s.Src, s.Dst, s.Policy.ID)))

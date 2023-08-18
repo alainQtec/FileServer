@@ -56,7 +56,7 @@ type PolicyOption struct {
 	OdDriver string `json:"od_driver,omitempty"`
 	// Region 区域代码
 	Region string `json:"region,omitempty"`
-	// ServerSideEndpoint 服务端请求使用的 Endpoint，为空时使用 Policy.Server 字段
+	// ServerSideEndpoint 服务端请求使用的 Endpoint , 为空时使用 Policy.Server 字段
 	ServerSideEndpoint string `json:"server_side_endpoint,omitempty"`
 	// 分片上传的分片大小
 	ChunkSize uint64 `json:"chunk_size,omitempty"`
@@ -148,7 +148,7 @@ func (policy *Policy) GeneratePath(uid uint, origin string) string {
 
 // GenerateFileName 生成存储文件名
 func (policy *Policy) GenerateFileName(uid uint, origin string) string {
-	// 未开启自动重命名时，直接返回原始文件名
+	// 未开启自动重命名时 , 直接返回原始文件名
 	if !policy.AutoRename {
 		return origin
 	}

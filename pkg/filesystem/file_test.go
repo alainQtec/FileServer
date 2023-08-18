@@ -595,7 +595,7 @@ func TestFileSystem_Preview(t *testing.T) {
 		asserts.Nil(resp)
 	}
 
-	// 需要重定向，成功
+	// 需要重定向 , 成功
 	{
 		fs := FileSystem{
 			User: &model.User{},
@@ -617,7 +617,7 @@ func TestFileSystem_Preview(t *testing.T) {
 		asserts.True(resp.Redirect)
 	}
 
-	// 文本文件，大小超出限制
+	// 文本文件 , 大小超出限制
 	{
 		fs := FileSystem{
 			User: &model.User{},

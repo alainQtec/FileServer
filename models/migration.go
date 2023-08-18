@@ -67,7 +67,7 @@ func migration() {
 
 func addDefaultPolicy() {
 	_, err := GetPolicyByID(uint(1))
-	// 未找到初始存储策略时，则创建
+	// 未找到初始存储策略时 , 则创建
 	if gorm.IsRecordNotFoundError(err) {
 		defaultPolicy := Policy{
 			Name:               "Default storage policy",
@@ -95,7 +95,7 @@ func addDefaultSettings() {
 
 func addDefaultGroups() {
 	_, err := GetGroupByID(1)
-	// 未找到初始管理组时，则创建
+	// 未找到初始管理组时 , 则创建
 	if gorm.IsRecordNotFoundError(err) {
 		defaultAdminGroup := Group{
 			Name:          "Admin",
@@ -121,7 +121,7 @@ func addDefaultGroups() {
 
 	err = nil
 	_, err = GetGroupByID(2)
-	// 未找到初始注册会员时，则创建
+	// 未找到初始注册会员时 , 则创建
 	if gorm.IsRecordNotFoundError(err) {
 		defaultAdminGroup := Group{
 			Name:          "User",
@@ -143,7 +143,7 @@ func addDefaultGroups() {
 
 	err = nil
 	_, err = GetGroupByID(3)
-	// 未找到初始游客用户组时，则创建
+	// 未找到初始游客用户组时 , 则创建
 	if gorm.IsRecordNotFoundError(err) {
 		defaultAdminGroup := Group{
 			Name:       "Anonymous",
@@ -163,7 +163,7 @@ func addDefaultUser() {
 	_, err := GetUserByID(1)
 	password := util.RandStringRunes(8)
 
-	// 未找到初始用户时，则创建
+	// 未找到初始用户时 , 则创建
 	if gorm.IsRecordNotFoundError(err) {
 		defaultUser := NewUser()
 		defaultUser.Email = "admin@FileServer.org"

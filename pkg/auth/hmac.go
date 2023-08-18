@@ -15,7 +15,7 @@ type HMACAuth struct {
 	SecretKey []byte
 }
 
-// Sign 对给定Body生成expires后失效的签名，expires为过期时间戳，
+// Sign 对给定Body生成expires后失效的签名 , expires为过期时间戳 ,
 // 填写为0表示不限制有效期
 func (auth HMACAuth) Sign(body string, expires int64) string {
 	h := hmac.New(sha256.New, auth.SecretKey)
@@ -28,7 +28,7 @@ func (auth HMACAuth) Sign(body string, expires int64) string {
 	return base64.URLEncoding.EncodeToString(h.Sum(nil)) + ":" + expireTimeStamp
 }
 
-// Check 对给定Body和Sign进行鉴权，包括对expires的检查
+// Check 对给定Body和Sign进行鉴权 , 包括对expires的检查
 func (auth HMACAuth) Check(body string, sign string) error {
 	signSlice := strings.Split(sign, ":")
 	// 如果未携带expires字段

@@ -137,7 +137,7 @@ func copyFiles(ctx context.Context, fs *filesystem.FileSystem, src FileInfo, dst
 	return http.StatusNoContent, nil
 }
 
-// 判断目标 文件/夹 是否已经存在，存在则先删除目标文件/夹
+// 判断目标 文件/夹 是否已经存在 , 存在则先删除目标文件/夹
 func _checkOverwriteFile(ctx context.Context, fs *filesystem.FileSystem, src FileInfo, dst string) error {
 	if src.IsDir() {
 		ok, folder := fs.IsPathExist(dst)

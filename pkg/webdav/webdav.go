@@ -389,12 +389,12 @@ func (h *Handler) handlePut(w http.ResponseWriter, r *http.Request, fs *filesyst
 	// 判断文件是否已存在
 	exist, originFile := fs.IsFileExist(reqPath)
 	if exist {
-		// 已存在，为更新操作
+		// 已存在 , 为更新操作
 
 		// 检查此文件是否有软链接
 		fileList, err := model.RemoveFilesWithSoftLinks([]model.File{*originFile})
 		if err == nil && len(fileList) == 0 {
-			// 如果包含软连接，应重新生成新文件副本，并更新source_name
+			// 如果包含软连接 , 应重新生成新文件副本 , 并更新source_name
 			originFile.SourceName = fs.GenerateSavePath(ctx, &fileData)
 			fileData.Mode &= ^fsctx.Overwrite
 			fs.Use("AfterUpload", filesystem.HookUpdateSourceName)
@@ -542,7 +542,7 @@ func (h *Handler) handleCopyMove(w http.ResponseWriter, r *http.Request, fs *fil
 		return status, nil
 	}
 
-	// windows下，某些情况下（网盘根目录下）Office保存文件时附带的锁token只包含源文件，
+	// windows下 , 某些情况下（网盘根目录下）Office保存文件时附带的锁token只包含源文件 ,
 	// 此处暂时去除了对dst锁的检查
 	release, status, err := h.confirmLocks(r, src, "", fs)
 	if err != nil {

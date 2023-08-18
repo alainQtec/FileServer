@@ -33,7 +33,7 @@ type MQ interface {
 	// 订阅一个消息主题
 	Subscribe(string, int) <-chan Message
 
-	// 订阅一个消息主题，注册触发回调函数
+	// 订阅一个消息主题 , 注册触发回调函数
 	SubscribeCallback(string, CallbackFunc)
 
 	// 取消订阅一个消息主题

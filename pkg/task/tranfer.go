@@ -28,10 +28,10 @@ type TransferTask struct {
 // TransferProps 中转任务属性
 type TransferProps struct {
 	Src      []string          `json:"src"`      // 原始文件
-	SrcSizes map[string]uint64 `json:"src_size"` // 原始文件的大小信息，从机转存时使用
+	SrcSizes map[string]uint64 `json:"src_size"` // 原始文件的大小信息 , 从机转存时使用
 	Parent   string            `json:"parent"`   // 父目录
 	Dst      string            `json:"dst"`      // 目的目录ID
-	// 将会保留原始文件的目录结构，Src 除去 Parent 开头作为最终路径
+	// 将会保留原始文件的目录结构 , Src 除去 Parent 开头作为最终路径
 	TrimPath bool `json:"trim_path"`
 	// 负责处理中专任务的节点ID
 	NodeID uint `json:"node_id"`

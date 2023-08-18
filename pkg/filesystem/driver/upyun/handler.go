@@ -156,8 +156,8 @@ func (handler Driver) Put(ctx context.Context, file fsctx.FileHeader) error {
 	return err
 }
 
-// Delete 删除一个或多个文件，
-// 返回未删除的文件，及遇到的最后一个错误
+// Delete 删除一个或多个文件 ,
+// 返回未删除的文件 , 及遇到的最后一个错误
 func (handler Driver) Delete(ctx context.Context, files []string) ([]string, error) {
 	up := upyun.NewUpYun(&upyun.UpYunConfig{
 		Bucket:   handler.Policy.BucketName,
@@ -176,7 +176,7 @@ func (handler Driver) Delete(ctx context.Context, files []string) ([]string, err
 	)
 	wg.Add(routineNum)
 
-	// upyun不支持批量操作，这里开四个协程并行操作
+	// upyun不支持批量操作 , 这里开四个协程并行操作
 	for i := 0; i < routineNum; i++ {
 		go func() {
 			for {
@@ -281,7 +281,7 @@ func (handler Driver) Source(ctx context.Context, path string, ttl int64, isDown
 
 func (handler Driver) signURL(ctx context.Context, path *url.URL, TTL int64) (string, error) {
 	if !handler.Policy.IsPrivate {
-		// 未开启Token防盗链时，直接返回
+		// 未开启Token防盗链时 , 直接返回
 		return path.String(), nil
 	}
 

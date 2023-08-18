@@ -10,7 +10,7 @@ import (
 	"github.com/alainQtec/FileServer/v3/pkg/serializer"
 )
 
-// Driver 影子存储策略，用于在从机端上传文件
+// Driver 影子存储策略 , 用于在从机端上传文件
 type Driver struct {
 	master  cluster.Node
 	handler driver.Handler

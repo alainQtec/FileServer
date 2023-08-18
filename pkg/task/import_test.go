@@ -101,7 +101,7 @@ func TestImportTask_Do(t *testing.T) {
 		task.Err = nil
 	}
 
-	// 成功列取，但是文件为空
+	// 成功列取 , 但是文件为空
 	{
 		cache.Deletes([]string{"63"}, "policy_")
 		task.TaskProps.Src = "TestImportTask_Do/empty"
@@ -125,7 +125,7 @@ func TestImportTask_Do(t *testing.T) {
 	f, _ := util.CreatNestedFile(util.RelativePath("tests/TestImportTask_Do/test.txt"))
 	f.Close()
 
-	// 成功列取，包含一个文件一个目录,父目录创建失败
+	// 成功列取 , 包含一个文件一个目录,父目录创建失败
 	{
 		cache.Deletes([]string{"63"}, "policy_")
 		task.TaskProps.Src = "tests"
@@ -141,11 +141,11 @@ func TestImportTask_Do(t *testing.T) {
 		mock.ExpectBegin()
 		mock.ExpectExec("UPDATE(.+)").WillReturnResult(sqlmock.NewResult(1, 1))
 		mock.ExpectCommit()
-		// 查找父目录，但是不存在
+		// 查找父目录 , 但是不存在
 		mock.ExpectQuery("SELECT(.+)folders").WillReturnRows(sqlmock.NewRows([]string{"id"}))
 		// 仍然不存在
 		mock.ExpectQuery("SELECT(.+)folders").WillReturnRows(sqlmock.NewRows([]string{"id"}))
-		// 创建文件时查找父目录，仍然不存在
+		// 创建文件时查找父目录 , 仍然不存在
 		mock.ExpectQuery("SELECT(.+)folders").WillReturnRows(sqlmock.NewRows([]string{"id"}))
 		mock.ExpectQuery("SELECT(.+)folders").WillReturnRows(sqlmock.NewRows([]string{"id"}))
 
@@ -156,7 +156,7 @@ func TestImportTask_Do(t *testing.T) {
 		task.Err = nil
 	}
 
-	// 成功列取，包含一个文件一个目录, 全部操作成功
+	// 成功列取 , 包含一个文件一个目录, 全部操作成功
 	{
 		cache.Deletes([]string{"63"}, "policy_")
 		task.TaskProps.Src = "tests"
@@ -172,9 +172,9 @@ func TestImportTask_Do(t *testing.T) {
 		mock.ExpectBegin()
 		mock.ExpectExec("UPDATE(.+)").WillReturnResult(sqlmock.NewResult(1, 1))
 		mock.ExpectCommit()
-		// 查找父目录，存在
+		// 查找父目录 , 存在
 		mock.ExpectQuery("SELECT(.+)folders").WillReturnRows(sqlmock.NewRows([]string{"id"}).AddRow(1))
-		// 查找同名文件，不存在
+		// 查找同名文件 , 不存在
 		mock.ExpectQuery("SELECT(.+)files").WillReturnRows(sqlmock.NewRows([]string{"id"}))
 		// 创建目录
 		mock.ExpectQuery("SELECT(.+)folders").WillReturnRows(sqlmock.NewRows([]string{"id"}))

@@ -90,7 +90,7 @@ func TestShare_IsAvailable(t *testing.T) {
 		asserts.False(share.IsAvailable())
 	}
 
-	// 源对象为目录，但不存在
+	// 源对象为目录 , 但不存在
 	{
 		share := Share{
 			RemainDownloads: -1,
@@ -103,7 +103,7 @@ func TestShare_IsAvailable(t *testing.T) {
 		asserts.NoError(mock.ExpectationsWereMet())
 	}
 
-	// 源对象为目录，存在
+	// 源对象为目录 , 存在
 	{
 		share := Share{
 			RemainDownloads: -1,
@@ -163,7 +163,7 @@ func TestShare_CanBeDownloadBy(t *testing.T) {
 	asserts := assert.New(t)
 	share := Share{}
 
-	// 未登录，无权
+	// 未登录 , 无权
 	{
 		user := &User{
 			Group: Group{
@@ -175,7 +175,7 @@ func TestShare_CanBeDownloadBy(t *testing.T) {
 		asserts.Error(share.CanBeDownloadBy(user))
 	}
 
-	// 已登录，无权
+	// 已登录 , 无权
 	{
 		user := &User{
 			Model: gorm.Model{ID: 1},
@@ -208,7 +208,7 @@ func TestShare_WasDownloadedBy(t *testing.T) {
 		Model: gorm.Model{ID: 1},
 	}
 
-	// 已登录，已下载
+	// 已登录 , 已下载
 	{
 		user := User{
 			Model: gorm.Model{

@@ -44,7 +44,7 @@ func (service *CreateUploadSessionService) Create(ctx context.Context, c *gin.Co
 	}
 
 	if fs.Policy.ID != rawID {
-		return serializer.Err(serializer.CodePolicyNotAllowed, "存储策略发生变化，请刷新文件列表并重新添加此任务", nil)
+		return serializer.Err(serializer.CodePolicyNotAllowed, "存储策略发生变化 , 请刷新文件列表并重新添加此任务", nil)
 	}
 
 	file := &fsctx.FileStream{

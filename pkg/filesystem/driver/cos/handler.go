@@ -82,9 +82,9 @@ func (handler Driver) List(ctx context.Context, base string, recursive bool) ([]
 		}
 		objects = append(objects, res.Contents...)
 		commons = append(commons, res.CommonPrefixes...)
-		// 如果本次未列取完，则继续使用marker获取结果
+		// 如果本次未列取完 , 则继续使用marker获取结果
 		marker = res.NextMarker
-		// marker 为空时结果列取完毕，跳出
+		// marker 为空时结果列取完毕 , 跳出
 		if marker == "" {
 			break
 		}
@@ -186,8 +186,8 @@ func (handler Driver) Put(ctx context.Context, file fsctx.FileHeader) error {
 	return err
 }
 
-// Delete 删除一个或多个文件，
-// 返回未删除的文件，及遇到的最后一个错误
+// Delete 删除一个或多个文件 ,
+// 返回未删除的文件 , 及遇到的最后一个错误
 func (handler Driver) Delete(ctx context.Context, files []string) ([]string, error) {
 	obs := []cossdk.Object{}
 	for _, v := range files {

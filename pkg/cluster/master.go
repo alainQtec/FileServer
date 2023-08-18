@@ -153,7 +153,7 @@ func (r *rpcService) Init() error {
 	defer r.parent.lock.Unlock()
 	r.Initialized = false
 
-	// 客户端已存在，则关闭先前连接
+	// 客户端已存在 , 则关闭先前连接
 	if r.Caller != nil {
 		r.Caller.Close()
 	}
@@ -259,7 +259,7 @@ func (s *rpcService) DeleteTempFile(task *model.Download) error {
 	s.parent.lock.RLock()
 	defer s.parent.lock.RUnlock()
 
-	// 避免被aria2占用，异步执行删除
+	// 避免被aria2占用 , 异步执行删除
 	go func(d time.Duration, src string) {
 		time.Sleep(d)
 		err := os.RemoveAll(src)

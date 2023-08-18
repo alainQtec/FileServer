@@ -82,7 +82,7 @@ func (service *UserRegisterService) Register(c *gin.Context) serializer.Response
 			return serializer.Err(serializer.CodeFailedSendEmail, "Failed to send activation email", err)
 		}
 		if userNotActivated == true {
-			//原本在上面要抛出的DBErr，放来这边抛出
+			//原本在上面要抛出的DBErr , 放来这边抛出
 			return serializer.Err(serializer.CodeEmailSent, "User is not activated, activation email has been resent", nil)
 		} else {
 			return serializer.Response{Code: 203}

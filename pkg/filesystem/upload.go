@@ -51,7 +51,7 @@ func (fs *FileSystem) Upload(ctx context.Context, file *fsctx.FileStream) (err e
 
 	// 保存文件
 	if file.Mode&fsctx.Nop != fsctx.Nop {
-		// 处理客户端未完成上传时，关闭连接
+		// 处理客户端未完成上传时 , 关闭连接
 		go fs.CancelUpload(ctx, savePath, file)
 
 		err = fs.Handler.Put(ctx, file)
@@ -110,9 +110,9 @@ func (fs *FileSystem) CancelUpload(ctx context.Context, path string, file fsctx.
 	case <-reqContext.Done():
 		select {
 		case <-ctx.Done():
-			// 客户端正常关闭，不执行操作
+			// 客户端正常关闭 , 不执行操作
 		default:
-			// 客户端取消上传，删除临时文件
+			// 客户端取消上传 , 删除临时文件
 			util.Log().Debug("Client canceled upload.")
 			if fs.Hooks["AfterUploadCanceled"] == nil {
 				return
@@ -134,7 +134,7 @@ func (fs *FileSystem) CreateUploadSession(ctx context.Context, file *fsctx.FileS
 	callbackKey := uuid.Must(uuid.NewV4()).String()
 	fileSize := file.Size
 
-	// 创建占位的文件，同时校验文件信息
+	// 创建占位的文件 , 同时校验文件信息
 	file.Mode = fsctx.Nop
 	if callbackKey != "" {
 		file.UploadSessionID = &callbackKey

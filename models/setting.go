@@ -26,7 +26,7 @@ func GetSettingByName(name string) string {
 	return GetSettingByNameFromTx(DB, name)
 }
 
-// GetSettingByNameFromTx 用 Name 获取设置值，使用事务
+// GetSettingByNameFromTx 用 Name 获取设置值 , 使用事务
 func GetSettingByNameFromTx(tx *gorm.DB, name string) string {
 	var setting Setting
 
@@ -100,7 +100,7 @@ func GetSiteURL() *url.URL {
 	return base
 }
 
-// GetIntSetting 获取整形设置值，如果转换失败则返回默认值defaultVal
+// GetIntSetting 获取整形设置值 , 如果转换失败则返回默认值defaultVal
 func GetIntSetting(key string, defaultVal int) int {
 	res, err := strconv.Atoi(GetSettingByName(key))
 	if err != nil {

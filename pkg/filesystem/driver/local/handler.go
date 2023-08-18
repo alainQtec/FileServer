@@ -64,7 +64,7 @@ func (handler Driver) List(ctx context.Context, path string, recursive bool) ([]
 				LastModify:   info.ModTime(),
 			})
 
-			// 如果非递归，则不步入目录
+			// 如果非递归 , 则不步入目录
 			if !recursive && info.IsDir() {
 				return filepath.SkipDir
 			}
@@ -93,7 +93,7 @@ func (handler Driver) Put(ctx context.Context, file fsctx.FileHeader) error {
 	fileInfo := file.Info()
 	dst := util.RelativePath(filepath.FromSlash(fileInfo.SavePath))
 
-	// 如果非 Overwrite，则检查是否有重名冲突
+	// 如果非 Overwrite , 则检查是否有重名冲突
 	if fileInfo.Mode&fsctx.Overwrite != fsctx.Overwrite {
 		if util.Exists(dst) {
 			util.Log().Warning("File with the same name existed or unavailable: %s", dst)
@@ -101,7 +101,7 @@ func (handler Driver) Put(ctx context.Context, file fsctx.FileHeader) error {
 		}
 	}
 
-	// 如果目标目录不存在，创建
+	// 如果目标目录不存在 , 创建
 	basePath := filepath.Dir(dst)
 	if !util.Exists(basePath) {
 		err := os.MkdirAll(basePath, Perm)
@@ -171,8 +171,8 @@ func (handler Driver) Truncate(ctx context.Context, src string, size uint64) err
 	return out.Truncate(int64(size))
 }
 
-// Delete 删除一个或多个文件，
-// 返回未删除的文件，及遇到的最后一个错误
+// Delete 删除一个或多个文件 ,
+// 返回未删除的文件 , 及遇到的最后一个错误
 func (handler Driver) Delete(ctx context.Context, files []string) ([]string, error) {
 	deleteFailed := make([]string, 0, len(files))
 	var retErr error
@@ -240,7 +240,7 @@ func (handler Driver) Source(ctx context.Context, path string, ttl int64, isDown
 		err       error
 	)
 	if isDownload {
-		// 创建下载会话，将文件信息写入缓存
+		// 创建下载会话 , 将文件信息写入缓存
 		downloadSessionID := util.RandStringRunes(16)
 		err = cache.Set("download_"+downloadSessionID, file, int(ttl))
 		if err != nil {
@@ -274,7 +274,7 @@ func (handler Driver) Source(ctx context.Context, path string, ttl int64, isDown
 	return finalURL, nil
 }
 
-// Token 获取上传策略和认证Token，本地策略直接返回空值
+// Token 获取上传策略和认证Token , 本地策略直接返回空值
 func (handler Driver) Token(ctx context.Context, ttl int64, uploadSession *serializer.UploadSession, file fsctx.FileHeader) (*serializer.UploadCredential, error) {
 	if util.Exists(uploadSession.SavePath) {
 		return nil, errors.New("placeholder file already exist")
